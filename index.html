@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <!-- style sheet -->
+     <link rel="stylesheet" href="style.css">
+     <!-- google fonts -->
+     <link rel="preconnect" href="https://fonts.gstatic.com" />
+     <link
+       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Yusei+Magic&display=swap"
+       rel="stylesheet"
+     />
+     <!-- fontawesome icons -->
+     <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+     />
+     <!-- github icon -->
+     <script
+     src="https://kit.fontawesome.com/4c536a6bd5.js"
+     crossorigin="anonymous"></script>
+     <!-- distribution main -->
+     <script src="main.js" defer></script>
+</head>
+<body class="light">
+     <header class="header">
+         <!-- Hamburger Menu -->
+         <button class="button-dropdown-nav" id="button-dropdown-nav">
+         <i class="fas fa-bars"></i>
+         </button>
+         <!-- Title and logo -->
+     <div class="logo">
+         <i class="fas fa-check-double"></i>
+         <h1 class="page-name"> 1-3-5 Todo's</h1>
+     </div>
+     <!-- Theme drop-down -->
+     <div class="theme">
+         <label class="theme" for="theme-select"
+             ><i class="fa fa-sun-o"></i
+         ></label>
+         <select id="theme-select">
+             <option value="light">Light Theme</option>
+             <option value="dark">Dark Theme</option>
+         </select>
+         </div>
+     </header>
+
+     <main class="main">
+         <nav class="nav" id="nav">
+             <!-- Default projects -->
+             <div class="default-projects-list" id="default-projects-list">
+               <button class="button-default-project" id="button-inbox-projects">
+                 <i class="fas fa-inbox"></i>
+                 Inbox
+               </button>
+               <button class="button-default-project" id="button-today-projects">
+                 <i class="fas fa-calendar-day"></i>
+                 Today
+               </button>
+               <button class="button-default-project" id="button-week-projects">
+                 <i class="fas fa-calendar-week"></i>
+                 This Week
+               </button>
+               <button class="button-default-project" id="button-brag-projects">
+                 <i class="fas fa-trophy"></i>
+                 Brag Notes
+               </button>
+             </div>
+             <!-- User projects -->
+             <h1 class="projects-title">Projects</h1>
+             <div class="projects-list" id="projects-list"></div>
+             <button class="button-add-project" id="button-add-project">
+               <i class="fas fa-plus"></i>
+               Add Project
+             </button>
+             <div class="add-project-popup" id="add-project-popup">
+               <input
+                 class="input-add-project-popup"
+                 id="input-add-project-popup"
+                 type="text"
+               />
+               <div class="add-project-popup-buttons">
+                 <button
+                   class="button-add-project-popup"
+                   id="button-add-project-popup"
+                 >
+                   Add
+                 </button>
+                 <button
+                   class="button-cancel-project-popup"
+                   id="button-cancel-project-popup"
+                 >
+                   Cancel
+                 </button>
+               </div>
+             </div>
+           </nav>
+          <!-- Tasks right side of screen (rendering) -->
+         <div class="project-preview" id="project-preview"></div>
+         <!-- Add a task form pop-up -->
+         <div class="task-form-popup" id="task-form-popup">
+           <div class="task-form-container">
+               <span class="close-task-form" id="close-task-form">&times;</span>
+               <h2>Create Task</h2>
+               <form id="task-form">
+                   <label for="task-title">Title:</label>
+                   <input type="text" id="task-title" name="task-title" required>
+                   <label for="task-description">Description:</label>
+                   <textarea id="task-description" name="task-description" required></textarea>
+                   <label for="task-due-date">Due Date:</label>
+                   <input type="date" id="task-due-date" name="task-due-date">
+                   <label for="task-duration">Duration (pomodoros):</label>
+                   <input type="number" id="task-duration" name="task-duration" min="5" step="5" required>
+                   <button type="submit">Create</button>
+               </form>
+           </div>
+       </div>
+       </main>
+
+     <footer class="footer">
+         <p>Copyright © 2024 Kamari93</p>
+         <a href="https://github.com/Kamari93" target="_blank">
+           <i class="fab fa-github"></i
+         ></a>
+       </footer>
+</body>
+</html>
