@@ -1,0 +1,627 @@
+:root {
+    --primary-dark: #333;
+    --secondary-dark: #444;
+    --primary-light: #eee;
+    --secondary-light: #ddd;
+    --third-light: #a8b5ac;
+    --third-dark: #4f5552;
+    --primary-main: #f3f1f1;
+    --add-color: #809687;
+    --cancel-color: rgb(238, 112, 59);
+    /* --add-hover-color: #a6f0a6; */
+    --add-hover-color: #a8b5ac;
+    --cancel-hover-color: orange;
+}
+  
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+  
+html {
+    /* footer support */
+    position: relative;
+    min-height: 100%;
+}
+
+
+body.light {
+    color: var(--primary-dark);
+}
+
+body.dark {
+    color: var(--secondary-light);
+    /* background: var(--third-dark); */
+    background: #7c837f;
+}
+
+body.dark input {
+    color: var(--secondary-dark);
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    /* footer support */
+    margin-bottom: 48px;
+    background: var(--primary-main);
+}
+
+
+button,
+  input {
+    border: none;
+    /* ensuring that child elements inherit certain styles from their parent elements, */
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+  
+button {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+  
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+  
+i {
+    margin-right: 10px;
+}
+
+/* Header */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+body.light .header {
+    /* background-color: var(--primary-light); */
+    background-color: var(--third-light);
+    color: var(--secondary-dark);
+}
+
+body.dark .header {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .fa-check-double {
+    font-size: 40px;
+} */
+
+.fa-check-double,
+.page-name {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 35px;
+}
+
+.button-dropdown-nav {
+    /* this line takes the hamburger off the page */
+    display: none;
+    width: 40px;
+    padding: 0;
+    background-color: var(--third-light);
+    font-size: 40px;
+}
+
+body.dark .button-dropdown-nav {
+    background-color: var(--primary-dark);
+}
+
+.button-dropdown-nav i {
+    margin-right: 0;
+}
+
+select {
+    padding: 2px;
+    font-size: 16px;
+    border: solid var(--primary-light) 2px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+  
+body.dark select {
+    border: solid 2px var(--third-dark);
+}
+
+
+/* Main */
+
+.main {
+    display: flex;
+    /* navbar support */
+    min-height: calc(100vh - 103px - 42px); /*  - header_height - footer_height */
+}
+  
+.nav {
+    width: 300px;
+    min-width: 250px;
+    padding: 20px;
+}
+
+body.light .nav {
+    background: var(--secondary-light);
+}
+
+body.dark .nav {
+    background: var(--secondary-dark);
+    color: var(--secondary-light);
+}
+  
+/* hamburger menu drop-down active display block */
+.nav.active {
+    display: block;
+}
+
+/* Inbox Today This Week */
+.button-default-project {
+    background: inherit;
+    text-align: left;
+}
+
+.fa-inbox {
+    margin-right: 6px;
+}
+
+.projects-title {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.projects-list {
+    max-height: 250px; /* Set the maximum height for the projects list */
+    overflow-y: auto; /* Enable vertical scrollbar when content exceeds the height */
+  }
+
+/* These will be created via the UI.js file each time new task list created */
+.button-project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: var(--secondary-light); */
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* focus highlight button */
+body.light .selected-project-button {
+    background-color: var(--third-dark); /* Example background color for highlighting */
+    color: white;
+    /* Add any other styling for the highlighted state */
+  }
+
+body.dark .selected-project-button {
+    background-color: orange;
+    color: white;
+  }
+
+/* The add project button */
+.button-add-task,
+.button-add-project {
+    margin-top: 10px;
+    margin-left: 2px;
+    background: inherit;
+    text-align: left;
+}
+
+/* When add btn clicked plus sign dissapears to display pop-up */
+.button-add-project.active {
+    display: none;
+}
+
+/* When list btns clicked background change and text get bold ie inbbox today etc */
+/* active class will be added in UI.js */
+.button-project.active,
+.button-default-project.active {
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+.button-project:hover,
+.button-default-project:hover,
+.button-add-project:hover {
+  background-color: #ccc;
+  color: var(--primary-dark);
+}
+
+.button-project {
+    /* background: var(--add-color); */
+    background: inherit;
+}
+
+/* body.dark .button-project {
+    background: var(--primary-dark);
+    color: white;
+}
+
+
+body.dark .button-project:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+} */
+
+/* Will be created by rendering in UI.js this is the x icon on hover */
+.right-project-panel {
+    visibility: hidden;
+}
+
+/* in-depth project lists on main right div this is the x icon on hover */
+/* only appears when btn is hovered & when pressed it deletes the list item/btn */
+.button-project:hover .right-project-panel {
+    visibility: visible;
+}
+
+/* this is the x icon on hover */
+.fa-times {
+    margin-right: 0;
+}
+
+/* hide add list pop-up */
+.add-project-popup {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+/* When add new project pops up dislpay block */
+.add-project-popup.active {
+    display: block;
+}
+
+/* add project pop-up styling */
+.input-add-project-popup {
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
+  
+  .add-project-popup-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+  
+  .button-add-project-popup {
+    border: 1px solid var(--add-color);
+    background-color: var(--add-color);
+    font-weight: bold;
+}
+  
+  .button-cancel-project-popup {
+    border: 1px solid var(--cancel-color);
+    background-color: var(--cancel-color);
+    font-weight: bold;
+}
+  
+  .button-add-project-popup:hover {
+    background-color: var(--add-hover-color);
+}
+  
+  .button-cancel-project-popup:hover {
+    background-color: var(--cancel-hover-color);
+}
+
+/* The main right div where the Project Tasks are displayed..content created in UI.js*/
+.project-preview {
+    width: 900px;
+    padding: 20px 40px;
+    margin: 0 auto;
+}
+  
+.project-preview h1 {
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.button-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: var(--primary-light);
+    cursor: default;
+}
+
+.button-task:hover {
+    background-color: var(--secondary-light);
+}
+
+.left-task-panel {
+    display: flex;
+    align-items: center;
+}
+  
+.fa-circle {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.task-content {
+    cursor: pointer;
+}
+
+/* active classes will be added with js */
+.task-content.active {
+    display: none;
+}
+
+.input-task-name {
+    display: none;
+    height: 24px;
+    padding: 5px;
+    border: 1px solid #555;
+    background-color: var(--primary-light);
+    color: inherit;
+    font-family: inherit;
+}
+  
+.input-task-name.active {
+    display: block;
+}
+
+.right-task-panel {
+    display: flex;
+    align-items: center;
+}
+
+.due-date {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.due-date.active {
+    display: none;
+}
+
+.input-due-date {
+    display: none;
+    height: 24px;
+    padding: 5px;
+    border: 1px solid #555;
+    margin: 0 10px;
+    background-color: var(--primary-light);
+    color: inherit;
+    font-family: inherit;
+}
+
+.input-due-date.active {
+    display: block;
+}
+
+.button-task .right-task-panel i {
+    visibility: hidden;
+    cursor: pointer;
+}
+
+.button-task:hover .right-task-panel i {
+    visibility: visible;
+}
+
+.button-add-task {
+    display: block;
+    padding-left: 15px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.button-add-task.active {
+    display: none;
+}
+
+.button-add-task:hover {
+    background-color: var(--secondary-light);
+}
+
+.add-task-popup {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.add-task-popup.active {
+    display: block;
+}
+
+.input-add-task-popup {
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
+
+.add-task-popup-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.button-add-task-popup {
+    border: 1px solid #99dd99;
+    background-color: #aaffaa;
+    font-weight: bold;
+}
+
+.button-cancel-task-popup {
+    border: 1px solid #eeadad;
+    background-color: #ffbebe;
+    font-weight: bold;
+}
+
+.button-add-task-popup:hover {
+    background-color: #a6f0a6;
+}
+  
+.button-cancel-task-popup:hover {
+    background-color: #f5b2b2;
+}
+
+
+/* Form */
+/* Style for the task form pop-up */
+.task-form-popup {
+    display: none; /*Initially hidden*/
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.task-form-container {
+    background-color: var(--add-hover-color);
+    margin: 10% auto; /* Center the form vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px; /* Set maximum width for larger screens */
+}
+
+/* Close button style */
+.close-task-form {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-task-form:hover,
+.close-task-form:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style for form labels */
+.task-form-label {
+    display: inline-block;
+    width: 30%; /* Adjust as needed */
+    margin-right: 5px;
+    text-align: right;
+}
+
+/* Style for form inputs */
+.task-form-input {
+    width: 65%; /* Adjust as needed */
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* Style for description text area */
+#task-description {
+    width: 100%; /* Take full width */
+    height: 100px; /* Adjust height as needed */
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#task-due-date {
+    margin-bottom: 5px;
+    /* width: 25%; */
+}
+
+#task-duration {
+    margin-bottom: 10px;
+    /* width: 25%; */
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+}
+
+body.light .footer {
+    background-color: var(--third-light);
+    color: var(--secondary-dark);
+}
+
+body.dark .footer {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+}
+
+.fa-github {
+    font-size: 22px;
+    transition: transform 0.3s ease-in-out;
+}
+
+body.light .fa-github {
+    color: var(--primary-light);
+}
+
+body.dark .fa-github {
+    color: var(--third-light);
+}
+  
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* Media queries */
+@media (max-width: 650px) {
+    /* Media Query for Header */
+    .button-dropdown-nav {
+      display: block;
+    }
+
+    .fa-check-double, .page-name {
+        font-size: 15px;
+    }
+    
+    .main {
+        flex-direction: column;
+      }
+    
+      .nav {
+        width: 100%;
+        display: none;
+      }
+      
+      .project-preview {
+        width: 100%;
+      }
+    
+      .right-task-panel {
+        justify-content: flex-end;
+        max-width: 33%;
+      }
+
+      .task-form-container {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+  
+}
