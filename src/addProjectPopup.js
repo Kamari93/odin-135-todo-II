@@ -1,4 +1,4 @@
-// import { projectPreview } from './projectPreview';
+import { projectPreview } from './projectPreview';
 import { generateProjectId } from './utils'; // Import the generateProjectId function
 
 export const addProjectPopup = (() => {

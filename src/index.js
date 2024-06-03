@@ -8,6 +8,8 @@ import { addProjectPopup } from './addProjectPopup.js';
 
 import { openNav } from './hamburgerNav.js';
 
+import { projectPreview } from './projectPreview';
+
 
 //on start up checked whether its on light mode or dark mode
 const themeSelect = document.getElementById("theme-select");
@@ -22,3 +24,48 @@ themeSelect.addEventListener('change', toggleTheme);
 addProjectBtn.addEventListener('click', addProjectPopup);
 
 openNavButton.addEventListener('click', openNav);
+
+
+// Initialize the projectPreview module
+const projectsList = document.getElementById('projects-list');
+projectPreview.initialize(projectsList);
+
+// Event listeners for user-created projects
+projectsList.addEventListener('click', (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains('button-project')) {
+        const projectId = clickedElement.dataset.projectId; // Fetch projectId from the dataset
+        selectUserProject(clickedElement, projectId); // Pass the clicked button element
+    }
+});
+
+// Function to handle selecting a user-created project
+function selectUserProject(projectButton, projectId) { // Change the argument to projectButton
+    // Call the displaySelectedProject function from the projectPreview module
+    const projectName = projectButton.querySelector('span').textContent;
+    projectPreview.displaySelectedProject(projectName, projectId, false);
+    projectPreview.highlightSelectedProjectButton(projectButton); // Pass the button element
+};
+
+
+// Event listeners for default projects
+const defaultProjects = document.getElementById('default-projects-list');
+defaultProjects.addEventListener('click', (event) => {
+    const clickedElement = event.target;
+    if (clickedElement.classList.contains('button-default-project')) {
+        const projectName = clickedElement.textContent.trim();
+        projectPreview.displaySelectedProject(projectName, '', true);
+        projectPreview.highlightSelectedProjectButton(clickedElement);
+    }
+});
+
+// Function to handle clicks on default project buttons
+function handleDefaultProjectClick(event) {
+    // Retrieve the project name and ID from the clicked button
+    const projectName = event.target.textContent.trim();
+    const projectId = event.target.id; // Retrieve project ID from the button's id attribute
+
+    // Display the selected default project
+    projectPreview.displaySelectedProject(projectName, projectId, true); // Pass true to indicate it's a default project
+    console.log('Default Project Clicked:', projectId);
+}
