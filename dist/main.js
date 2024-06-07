@@ -66,7 +66,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generateProjectId: () => (/* binding */ generateProjectId)\n/* harmony export */ });\n// utils.js// utils.js\nlet projectIdCounter = 0;\n\n// Function to generate a unique project ID for created projects\nfunction generateProjectId() {\n    projectIdCounter++;\n    return `project_${projectIdCounter}`;\n}\n\n\n//# sourceURL=webpack://odin-135-todo-ii/./src/utils.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generateProjectId: () => (/* binding */ generateProjectId)\n/* harmony export */ });\n// // utils.js// utils.js\n// let projectIdCounter = 0;\n\n// // Function to generate a unique project ID for created projects\n// export function generateProjectId() {\n//     projectIdCounter++;\n//     return `project_${projectIdCounter}`;\n// }\n\n\n// utils.js\n// Initialize the projectIdCounter from local storage or start from 0\nlet projectIdCounter = JSON.parse(localStorage.getItem('projectIdCounter')) || 0;\n\n// Function to generate a unique project ID for created projects\nfunction generateProjectId() {\n    projectIdCounter++;\n    localStorage.setItem('projectIdCounter', JSON.stringify(projectIdCounter));\n    return `project_${projectIdCounter}`;\n}\n\n\n//# sourceURL=webpack://odin-135-todo-ii/./src/utils.js?");
 
 /***/ })
 
