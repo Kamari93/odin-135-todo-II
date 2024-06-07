@@ -4,9 +4,11 @@ import { generateProjectId } from './utils'; // Import the generateProjectId fun
 export const addProjectPopup = (() => {
     const buttonAddProject = document.getElementById('button-add-project');
     const addProjectPopup = document.getElementById('add-project-popup');
-    // use these to add a new project to displayed project list
     const inputAddProjectPopup = document.getElementById('input-add-project-popup');
     const projectsList = document.getElementById('projects-list');
+
+    // Load projects from local storage on page load
+    document.addEventListener('DOMContentLoaded', loadProjectsFromLocalStorage);
 
     buttonAddProject.addEventListener('click', () => {
         addProjectPopup.style.display = 'block';
@@ -18,37 +20,25 @@ export const addProjectPopup = (() => {
     });
 
     const buttonAddProjectPopup = document.getElementById('button-add-project-popup');
-
     buttonAddProjectPopup.addEventListener('click', () => {
         const newProjectName = inputAddProjectPopup.value;
         if (newProjectName) {
-
             const newProjectId = generateProjectId(); // Generate project ID
-            // Create a new project object
-            const newProject = { name: newProjectName, id: newProjectId }; // Pass project ID
-            // Call a function or method to add the new project to the list
-            addNewProject(newProject, newProjectId); // Pass projectId to addNewProject
-            // console.log(newProjectId)
-            // Optionally, close the popup
-            addProjectPopup.style.display = 'none';
-
-            // Optionally, clear the input field
-            inputAddProjectPopup.value = '';
+            const newProject = { name: newProjectName, id: newProjectId }; // Create a new project object
+            addNewProject(newProject); // Add the new project
+            addProjectPopup.style.display = 'none'; // Optionally, close the popup
+            inputAddProjectPopup.value = ''; // Optionally, clear the input field
         }
     });
 
+    function addNewProject(project) {
+        // Save the project to local storage
+        saveProjectToLocalStorage(project);
 
-    function addNewProject(project, projectId) {
-        // Call a function or method to add the new project to the list
-
-        // projectPreview.displaySelectedProject(project.name, project.id); // Pass project ID
-        // projectPreview.displaySelectedProject(project.name, projectId); // Pass projectId
         // Create a new project element
         const projectElement = document.createElement('button');
         projectElement.classList.add('button-project');
-
-        // Set the data-project-id attribute to the project element
-        projectElement.dataset.projectId = projectId;
+        projectElement.dataset.projectId = project.id;
 
         const leftPanel = document.createElement('div');
         leftPanel.classList.add('left-project-panel');
@@ -66,72 +56,81 @@ export const addProjectPopup = (() => {
 
         projectElement.appendChild(leftPanel);
         projectElement.appendChild(rightPanel);
-
-        // Append the project element to the projectsList
         projectsList.appendChild(projectElement);
 
         // Attach event listeners for edit and delete buttons
-        attachEditDeleteEventListeners(projectElement, project.name);
+        attachEditDeleteEventListeners(projectElement, project);
     };
 
-    function attachEditDeleteEventListeners(projectElement, projectName) {
+    function attachEditDeleteEventListeners(projectElement, project) {
         const editButton = projectElement.querySelector('.fa-edit');
         const deleteButton = projectElement.querySelector('.fa-trash-alt');
 
         editButton.addEventListener('click', () => {
-            // Call a function to handle editing the project
-            editProject(projectElement, projectName);
+            editProject(projectElement, project);
         });
 
         deleteButton.addEventListener('click', () => {
-            // Call a function to handle deleting the project
-            deleteProject(projectElement);
+            deleteProject(projectElement, project.id);
         });
 
-        // Add click event listener for the project button
         projectElement.addEventListener('click', () => {
-            // Call a function to handle selecting and displaying the project
-            selectAndDisplayProject(projectName);
+            selectAndDisplayProject(project);
         });
     };
 
-    function selectAndDisplayProject(projectName) {
-        // Call a function to display the selected project in the project preview
-        projectPreview.displaySelectedProject(projectName);
+    function selectAndDisplayProject(project) {
+        projectPreview.displaySelectedProject(project.name);
     }
 
-    function editProject(projectElement, projectName) {
-        // Ask the user for a new project name
-        let newProjectName = prompt('Enter the new project name:', projectName);
-
-        // Validate the user input
-        // The trim method is used to remove leading and trailing whitespaces from the input.
+    function editProject(projectElement, project) {
+        let newProjectName = prompt('Enter the new project name:', project.name);
         while (newProjectName !== null && newProjectName.trim() === "") {
-            // If the user entered an empty string, prompt again until a valid input is provided
-            newProjectName = prompt('Please enter a non-empty project name:', projectName);
+            newProjectName = prompt('Please enter a non-empty project name:', project.name);
         };
 
-        // Update the project name in the UI
         if (newProjectName !== null) {
             projectElement.querySelector('span').textContent = newProjectName;
+            project.name = newProjectName; // Update the project name
+            saveProjectToLocalStorage(project); // Save the updated project
         };
     };
 
-    function deleteProject(projectElement) {
-        // Ask for confirmation before deleting the project
+    function deleteProject(projectElement, projectId) {
         const confirmDelete = confirm('Are you sure you want to delete this project?');
-
-        // If the user confirms, remove the project from the UI
         if (confirmDelete) {
             projectElement.remove();
+            removeProjectFromLocalStorage(projectId); // Remove the project from local storage
         }
     }
 
-    // Other functionality to handle adding a new project (on "Add" button click), etc.
+    // When a project is added or edited, it updates the local storage
+    function saveProjectToLocalStorage(project) {
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        const projectIndex = projects.findIndex(p => p.id === project.id);
+        if (projectIndex > -1) {
+            projects[projectIndex] = project; // Update existing project
+        } else {
+            projects.push(project); // Add new project
+        }
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+
+    // When a project is deleted, it removes it from local storage
+    function removeProjectFromLocalStorage(projectId) {
+        let projects = JSON.parse(localStorage.getItem('projects')) || [];
+        projects = projects.filter(project => project.id !== projectId);
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+
+    // When the page loads, it retrieves the saved projects from local storage and adds them to the UI.
+    function loadProjectsFromLocalStorage() {
+        const projects = JSON.parse(localStorage.getItem('projects')) || [];
+        projects.forEach(project => addNewProject(project));
+    }
 
     return {
         // Expose any necessary functions or variables
-        // addNewProject,
-        // projectId // Add this line to expose the projectId
     };
 })();
+
