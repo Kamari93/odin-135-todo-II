@@ -173,7 +173,7 @@ body.dark .nav {
 }
 
 .projects-list {
-    max-height: 250px; /* Set the maximum height for the projects list */
+    max-height: 200px; /* Set the maximum height for the projects list */
     overflow-y: auto; /* Enable vertical scrollbar when content exceeds the height */
 }
 
@@ -192,7 +192,7 @@ body.dark .button-project {
 
 body.dark .button-project:hover {
     background-color: orange;
-    color: var(--primary-light);
+    /* color: var(--primary-light); */
 }
 
 body.light .selected-project-button {
@@ -324,6 +324,36 @@ body.dark .task {
 
 .task:hover {
     background-color: var(--secondary-light);
+}
+
+/* Task border color codes 1-3-5     */
+.task-border-purple {
+    border: 3px solid rgb(139, 92, 158);
+}
+
+.task-border-blue {
+    border: 3px solid rgb(99, 132, 167);
+}
+
+.task-border-green {
+    border: 3px solid rgb(0, 128, 113);
+}
+
+/* Task Move Arrows */
+.task-move {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.task-move i {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.task-move i:last-child {
+    margin-bottom: 0;
 }
 
 /* Task Title */
