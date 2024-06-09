@@ -302,13 +302,31 @@ body.dark .selected-project-button {
     margin-top: 20px;
 }
 
+
+/* Task Container */
+
+.task-list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* gap: 20px; */
+    flex-wrap: wrap;
+    width: 90%;
+}
+
 .task-list {
     max-height: 400px; /* Set a maximum height for the task list */
     overflow-y: auto; /* Enable vertical scrollbar when content exceeds the height */
+    flex: 1;
+    min-width: 70%;
 }
 
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
-/* Task Container */
 .task {
     display: flex;
     align-items: center;
@@ -417,6 +435,47 @@ input.task-complete {
     line-height: 24px;
 }
 
+
+.color-code-key {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px; /* Space between task list and color key bar */
+    border: 1px solid none;
+    padding: 10px;
+    background-color: none;
+}
+
+.color-code-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.color-code-box {
+    width: 30px; /* Diameter of the circle */
+    height: 30px; /* Diameter of the circle */
+    border-radius: 50%; /* Makes the box circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: white; */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.color-code-box.purple {
+    background-color: rgb(139, 92, 158);
+}
+
+.color-code-box.blue {
+    background-color: rgb(99, 132, 167);
+}
+
+.color-code-box.green {
+    background-color: rgb(0, 128, 113);
+}
 
 
 .button-add-task {
@@ -619,5 +678,23 @@ body.dark .fa-github {
 
     .task-form-container {
         width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .task-list-container {
+        flex-direction: column;
+    }
+
+    .task-list {
+        margin-right: 0;
+    }
+
+    .color-code-key {
+        margin-top: 20px;
+        width: 100%; /* Color key takes full width below task list */
+        flex-direction: row;
+        column-gap: 10px;
+        /* align-items: center; */
     }
 }
