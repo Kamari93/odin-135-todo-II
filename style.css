@@ -43,6 +43,7 @@ body {
     line-height: 1.6;
     margin-bottom: 48px;
     background: var(--primary-main);
+    overflow-x: hidden;
 }
 
 button,
@@ -226,6 +227,19 @@ body.dark .selected-project-button {
 .button-project:hover,
 .button-default-project:hover,
 .button-add-project:hover {
+    background-color: #ccc;
+    color: var(--primary-dark);
+}
+
+/* Added styles for the filter button */
+.button-filter-tasks {
+    margin-top: 10px;
+    margin-left: 2px;
+    background: inherit;
+    text-align: left;
+}
+
+.button-filter-tasks:hover {
     background-color: #ccc;
     color: var(--primary-dark);
 }
