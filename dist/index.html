@@ -51,19 +51,19 @@
          <nav class="nav" id="nav">
              <!-- Default projects -->
              <div class="default-projects-list" id="default-projects-list">
-               <button class="button-default-project" id="button-inbox-projects">
+               <button class="button-default-project" data-project-id="default-inbox" data-project-type="inbox">
                  <i class="fas fa-inbox"></i>
                  Inbox
                </button>
-               <button class="button-default-project" id="button-today-projects">
+               <button class="button-default-project" data-project-id="default-today" data-project-type="today">
                  <i class="fas fa-calendar-day"></i>
                  Today
                </button>
-               <button class="button-default-project" id="button-week-projects">
+               <button class="button-default-project" data-project-id="default-this-week" data-project-type="this-week">
                  <i class="fas fa-calendar-week"></i>
                  This Week
                </button>
-               <button class="button-default-project" id="button-brag-projects">
+               <button class="button-default-project" data-project-id="default-brag-notes" data-project-type="brag-notes">
                  <i class="fas fa-trophy"></i>
                  Brag Notes
                </button>
@@ -99,24 +99,6 @@
            </nav>
           <!-- Tasks right side of screen (rendering) -->
          <div class="project-preview" id="project-preview"></div>
-         <!-- Add a task form pop-up -->
-         <div class="task-form-popup" id="task-form-popup">
-           <div class="task-form-container">
-               <span class="close-task-form" id="close-task-form">&times;</span>
-               <h2>Create Task</h2>
-               <form id="task-form">
-                   <label for="task-title">Title:</label>
-                   <input type="text" id="task-title" name="task-title" required>
-                   <label for="task-description">Description:</label>
-                   <textarea id="task-description" name="task-description" required></textarea>
-                   <label for="task-due-date">Due Date:</label>
-                   <input type="date" id="task-due-date" name="task-due-date">
-                   <label for="task-duration">Duration (pomodoros):</label>
-                   <input type="number" id="task-duration" name="task-duration" min="5" step="5" required>
-                   <button type="submit">Create</button>
-               </form>
-           </div>
-       </div>
        </main>
 
      <footer class="footer">
