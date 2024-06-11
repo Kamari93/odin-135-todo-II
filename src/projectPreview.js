@@ -4,9 +4,22 @@ export const projectPreview = (() => {
     let projectPreviewElement;
     let currentProjectId;
 
+    // Function to gather tasks from all projects and organize them for the inbox
+    function gatherTasksForInbox() {
+        const inboxTasks = [];
+        for (const projectId in projectTasks) {
+            const tasks = projectTasks[projectId];
+            inboxTasks.push(...tasks);
+        }
+        return inboxTasks;
+    }
+
     function initialize(projectsList) {
         projectPreviewElement = document.getElementById('project-preview');
         projectsList.addEventListener('click', handleUserProjectClick);
+
+        // Render the inbox project initially
+        displaySelectedProject("Inbox", null);
     }
 
     function handleUserProjectClick(event) {
@@ -46,6 +59,20 @@ export const projectPreview = (() => {
                     </div>
                 </div>
             `;
+        }
+
+        else {
+            projectHTML += `
+            <div class="filter-dropdown" id="filter-dropdown">
+                <select id="filter-select">
+                    <option value="all">All Tasks</option>
+                    <!-- Add options for task types -->
+                    <option value="purple">Big Task</option>
+                    <option value="blue">Medium Task</option>
+                    <option value="green">Small Task</option>
+                </select>
+            </div>
+        `;
         }
 
         projectPreviewElement.innerHTML = projectHTML;
@@ -196,6 +223,9 @@ export const projectPreview = (() => {
         // Highlight the selected project button
         projectButton.classList.add('selected-project-button');
     }
+
+    console.log(projectTasks)
+    // console.log(inboxTasks)
 
     return {
         initialize,
