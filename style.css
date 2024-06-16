@@ -495,7 +495,7 @@ input.task-complete {
     margin-bottom: 10px; /* Adjust as needed */
 }
 
-#filter-select {
+.filter-select {
     padding: 5px;
     border-radius: 5px;
     width: 100%;
