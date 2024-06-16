@@ -1,25 +1,25 @@
-const projectTasks = {};
+const projectTasks = {
+    // Example structure
+    // projectId1: [
+    //     { title: "Task 1", date: "2024-06-15", completed: false },
+    //     { title: "Task 2", date: "2024-06-16", completed: true }
+    // ],
+    // projectId2: [
+    //     { title: "Task 3", date: "2024-06-17", completed: false }
+    // ]
+};
 
 export const projectPreview = (() => {
     let projectPreviewElement;
     let currentProjectId;
-
-    // Function to gather tasks from all projects and organize them for the inbox
-    function gatherTasksForInbox() {
-        const inboxTasks = [];
-        for (const projectId in projectTasks) {
-            const tasks = projectTasks[projectId];
-            inboxTasks.push(...tasks);
-        }
-        return inboxTasks;
-    }
 
     function initialize(projectsList) {
         projectPreviewElement = document.getElementById('project-preview');
         projectsList.addEventListener('click', handleUserProjectClick);
 
         // Render the inbox project initially
-        displaySelectedProject("Inbox", null);
+        displaySelectedProject("Inbox", 'default-inbox', true);
+        // projectPreview.highlightSelectedProjectButton("Inbox");
     }
 
     function handleUserProjectClick(event) {
@@ -33,10 +33,26 @@ export const projectPreview = (() => {
         }
     }
 
-    function displaySelectedProject(projectName, projectId) {
+    function displaySelectedProject(projectName, projectId, isDefault = false) {
         let projectHTML = `<h1 class="selected-project">${projectName}</h1>`;
 
-        if (projectId) { // Only add task management buttons if it's a user-created project
+        if (isDefault) {
+            projectHTML += `
+                <div class="filter-dropdown" id="filter-dropdown">
+                    <select id="filter-select">
+                        <option value="all">All Tasks</option>
+                        <!-- Add options for task types -->
+                        <option value="purple">Big Task</option>
+                        <option value="blue">Medium Task</option>
+                        <option value="green">Small Task</option>
+                    </select>
+                </div>
+                <div class="tasks-container">
+                    <div class="task-list" id="task-list-${projectId}"></div>
+                </div>
+            `;
+            console.log(`Default ProjectID: ${projectId}`);
+        } else {
             projectHTML += `
                 <div class="tasks-container">
                     <button class="button-add-task" data-project-id="${projectId}"><i class="fas fa-plus"></i> Add Task</button>
@@ -61,25 +77,24 @@ export const projectPreview = (() => {
             `;
         }
 
-        else {
-            projectHTML += `
-            <div class="filter-dropdown" id="filter-dropdown">
-                <select id="filter-select">
-                    <option value="all">All Tasks</option>
-                    <!-- Add options for task types -->
-                    <option value="purple">Big Task</option>
-                    <option value="blue">Medium Task</option>
-                    <option value="green">Small Task</option>
-                </select>
-            </div>
-        `;
-        }
-
         projectPreviewElement.innerHTML = projectHTML;
 
-        if (projectId) {
-            renderTasks(projectId);
+        if (isDefault) {
+            // renderTasks('default-inbox'); // Render tasks for default inbox
+            // renderTasks(projectId); // Render tasks for default inbox
+            renderDefaultProjectTasks(projectId);
+            // console.log(projectTasks['default-inbox'])
+            // renderDefaultProjectTasks(projectId);
+        } else {
+            renderTasks(projectId); // Render tasks for user-created project
         }
+    }
+
+    function updateDefaultInbox() {
+        const inboxTasks = gatherTasksForInbox();
+        projectTasks['default-inbox'] = inboxTasks;
+        storeProjectTasks('default-inbox'); // Store default inbox tasks in local storage
+        renderTasks('default-inbox'); // Render updated tasks in the default inbox
     }
 
     function moveTask(projectId, index, direction) {
@@ -125,6 +140,71 @@ export const projectPreview = (() => {
                 </div>
             `;
             taskList.insertAdjacentHTML('beforeend', taskHTML);
+        });
+        console.log(projectTasks)
+    }
+
+
+    function renderDefaultProjectTasks(projectId) {
+        const taskList = document.getElementById(`task-list-${projectId}`);
+        taskList.innerHTML = '';
+
+        let allTasks = [];
+
+        for (const pid in projectTasks) {
+            if (pid.startsWith('default-')) continue; // Skip default projects
+
+            const tasks = projectTasks[pid];
+            if (projectId === 'default-inbox') {
+                allTasks.push(...tasks); // Collect all tasks for Inbox
+            } else if (projectId === 'default-today') {
+                const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                const todayTasks = tasks.filter(task => task.date === today);
+                allTasks.push(...todayTasks); // Collect tasks due today
+            } else if (projectId === 'default-this-week') {
+                const today = new Date();
+                const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Start of the week (Monday)
+                const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7)); // End of the week (Sunday)
+
+                const weekTasks = tasks.filter(task => {
+                    const taskDate = new Date(task.date);
+                    return taskDate >= startOfWeek && taskDate <= endOfWeek;
+                });
+                allTasks.push(...weekTasks); // Collect tasks for this week
+            } else if (projectId === 'default-brag-notes') {
+                const completedTasks = tasks.filter(task => task.completed);
+                allTasks.push(...completedTasks); // Collect completed tasks
+            }
+        }
+
+        allTasks.forEach((task, index) => {
+            let borderClass = '';
+
+            // if (index === 0) {
+            //     borderClass = 'task-border-purple';
+            // } else if (index >= 1 && index <= 3) {
+            //     borderClass = 'task-border-blue';
+            // } else if (index >= 4) {
+            //     borderClass = 'task-border-green';
+            // }
+
+            const taskHTML = `
+                <div class="task ${borderClass}" data-task-id="${index}">
+                    <span class="task-move">
+                        <i class="fas fa-arrow-up" data-action="move-up"></i>
+                        <i class="fas fa-arrow-down" data-action="move-down"></i>
+                    </span>
+                    <span class="task-title">${task.title}</span>
+                    <span class="task-date">${task.date}</span>
+                    <span class="task-actions">
+                        <i class="fas fa-edit" data-action="edit"></i>
+                        <i class="fas fa-trash-alt" data-action="delete"></i>
+                    </span>
+                    <input type="checkbox" class="task-complete" ${task.completed ? 'checked' : ''}>
+                </div>
+            `;
+            taskList.insertAdjacentHTML('beforeend', taskHTML);
+            console.log(allTasks)
         });
     }
 
@@ -224,7 +304,72 @@ export const projectPreview = (() => {
         projectButton.classList.add('selected-project-button');
     }
 
+
+    // Function to gather tasks from all projects and organize them for the inbox
+    function gatherTasksForInbox() {
+        const inboxTasks = [];
+        for (const projectId in projectTasks) {
+            if (projectId !== 'default-inbox') { // Exclude default inbox itself
+                const tasks = projectTasks[projectId];
+                inboxTasks.push(...tasks);
+            }
+        }
+        return inboxTasks;
+    }
+
+    function gatherTasksFromAllProjects() {
+        const allTasks = [];
+        for (const projectId in projectTasks) {
+            allTasks.push(...projectTasks[projectId]);
+        }
+        return allTasks;
+    }
+
+    function gatherTasksForInbox() {
+        return gatherTasksFromAllProjects();
+    }
+
+    function gatherTasksForToday() {
+        const today = new Date().toISOString().split('T')[0];
+        return gatherTasksFromAllProjects().filter(task => task.date === today);
+    }
+
+    function gatherTasksForThisWeek() {
+        const today = new Date();
+        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Monday
+        const endOfWeek = new Date(today.setDate(today.getDate() + 6)); // Sunday
+
+        return gatherTasksFromAllProjects().filter(task => {
+            const taskDate = new Date(task.date);
+            return taskDate >= startOfWeek && taskDate <= endOfWeek;
+        });
+    }
+
+    function gatherTasksForBragNotes() {
+        return gatherTasksFromAllProjects().filter(task => task.completed);
+    }
+
+    // function renderDefaultProjectTasks(projectId) {
+    //     let tasks = [];
+    //     switch (projectId) {
+    //         case 'default-inbox':
+    //             tasks = gatherTasksForInbox();
+    //             break;
+    //         case 'default-today':
+    //             tasks = gatherTasksForToday();
+    //             break;
+    //         case 'default-this-week':
+    //             tasks = gatherTasksForThisWeek();
+    //             break;
+    //         case 'default-brag-notes':
+    //             tasks = gatherTasksForBragNotes();
+    //             break;
+    //     }
+    //     renderTasksForProject(tasks, projectId);
+    // }
+
     console.log(projectTasks)
+    // console.log(projectTasks[0])
     // console.log(inboxTasks)
 
     return {
@@ -233,8 +378,7 @@ export const projectPreview = (() => {
         handleTaskActions,
         addTask,
         highlightSelectedProjectButton,
+        updateDefaultInbox,
         loadProjectTasks
     };
 })();
-
-

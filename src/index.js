@@ -3,47 +3,60 @@ import { addProjectPopup } from './addProjectPopup.js';
 import { openNav } from './hamburgerNav.js';
 import { projectPreview } from './projectPreview';
 
-const themeSelect = document.getElementById("theme-select");
-const addProjectBtn = document.getElementById("button-add-project");
-const openNavButton = document.getElementById('button-dropdown-nav');
+// Wrapped all the initialization code inside a DOMContentLoaded event listener to ensure the DOM is fully loaded before accessing elements.
+document.addEventListener('DOMContentLoaded', () => {
+    // Element references
+    const themeSelect = document.getElementById("theme-select");
+    const addProjectBtn = document.getElementById("button-add-project");
+    const openNavButton = document.getElementById('button-dropdown-nav');
+    const projectsList = document.getElementById('projects-list');
+    const defaultProjects = document.getElementById('default-projects-list');
 
-themeSelect.addEventListener('change', toggleTheme);
-addProjectBtn.addEventListener('click', addProjectPopup);
-openNavButton.addEventListener('click', openNav);
+    // Event listeners
+    themeSelect.addEventListener('change', toggleTheme);
+    addProjectBtn.addEventListener('click', addProjectPopup);
+    openNavButton.addEventListener('click', openNav);
 
-const projectsList = document.getElementById('projects-list');
-projectPreview.initialize(projectsList);
+    projectsList.addEventListener('click', handleProjectClick);
+    defaultProjects.addEventListener('click', handleDefaultProjectClick);
 
-projectsList.addEventListener('click', (event) => {
-    const clickedElement = event.target;
-    if (clickedElement.classList.contains('button-project')) {
-        const projectId = clickedElement.dataset.projectId;
-        selectUserProject(clickedElement, projectId);
+    document.addEventListener('click', handleTaskOrAddTaskClick);
+
+    // Initialize project preview
+    projectPreview.initialize(projectsList);
+
+    function handleProjectClick(event) {
+        const clickedElement = event.target.closest('.button-project');
+        if (clickedElement) {
+            const projectId = clickedElement.dataset.projectId;
+            selectUserProject(clickedElement, projectId);
+        }
+    }
+
+    function selectUserProject(projectButton, projectId) {
+        const projectName = projectButton.querySelector('span').textContent;
+        projectPreview.displaySelectedProject(projectName, projectId);
+        projectPreview.highlightSelectedProjectButton(projectButton);
+        projectPreview.loadProjectTasks(projectId);
+    }
+
+    function handleDefaultProjectClick(event) {
+        const clickedElement = event.target;
+        if (clickedElement.classList.contains('button-default-project')) {
+            const projectId = clickedElement.dataset.projectId; // Fetches the project ID
+            const projectName = clickedElement.textContent.trim(); // Fetches the project name
+            projectPreview.displaySelectedProject(projectName, projectId, true); // Displays the selected default project
+            projectPreview.highlightSelectedProjectButton(clickedElement); // Highlights the selected project button
+        }
+    }
+
+    function handleTaskOrAddTaskClick(event) {
+        if (event.target.classList.contains('button-add-task')) {
+            const projectId = event.target.dataset.projectId;
+            projectPreview.addTask(projectId);
+        } else if (event.target.closest('.task')) {
+            projectPreview.handleTaskActions(event);
+        }
     }
 });
 
-function selectUserProject(projectButton, projectId) {
-    const projectName = projectButton.querySelector('span').textContent;
-    projectPreview.displaySelectedProject(projectName, projectId);
-    projectPreview.highlightSelectedProjectButton(projectButton);
-    projectPreview.loadProjectTasks(projectId);
-}
-
-const defaultProjects = document.getElementById('default-projects-list');
-defaultProjects.addEventListener('click', (event) => {
-    const clickedElement = event.target;
-    if (clickedElement.classList.contains('button-default-project')) {
-        const projectName = clickedElement.textContent.trim();
-        projectPreview.displaySelectedProject(projectName, '', true);
-        projectPreview.highlightSelectedProjectButton(clickedElement);
-    }
-});
-
-document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('button-add-task')) {
-        const projectId = event.target.dataset.projectId;
-        projectPreview.addTask(projectId);
-    } else if (event.target.closest('.task')) {
-        projectPreview.handleTaskActions(event);
-    }
-});
