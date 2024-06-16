@@ -25,5 +25,5 @@ export default function toggleTheme() {
     // Append the new icon to the label
     document.querySelector('.theme label').appendChild(icon);
 
-    console.log(selectedTheme);
+    // console.log(selectedTheme);
 }

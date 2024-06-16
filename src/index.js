@@ -1,3 +1,6 @@
+// this is the entry point for the app
+alert('Keep Going...🍊🌊');
+
 import toggleTheme from './theme';
 import { addProjectPopup } from './addProjectPopup.js';
 import { openNav } from './hamburgerNav.js';

@@ -12,6 +12,7 @@ const projectTasks = {
 export const projectPreview = (() => {
     let projectPreviewElement;
     let currentProjectId;
+    let currentFilter = 'all'; // Default filter
 
     function initialize(projectsList) {
         projectPreviewElement = document.getElementById('project-preview');
@@ -34,24 +35,26 @@ export const projectPreview = (() => {
     }
 
     function displaySelectedProject(projectName, projectId, isDefault = false) {
+        console.log(`Displaying project: ${projectName} with ID: ${projectId}, isDefault: ${isDefault}`);
+
         let projectHTML = `<h1 class="selected-project">${projectName}</h1>`;
 
         if (isDefault) {
             projectHTML += `
-                <div class="filter-dropdown" id="filter-dropdown">
-                    <select id="filter-select">
+                <div class="filter-dropdown" class = 'filter-dropdown' id="filter-dropdown-${projectId}">
+                    <select class="filter-select" id="filter-select-${projectId}">
                         <option value="all">All Tasks</option>
                         <!-- Add options for task types -->
-                        <option value="purple">Big Task</option>
-                        <option value="blue">Medium Task</option>
-                        <option value="green">Small Task</option>
+                        <option value="task-border-purple">Big Task</option>
+                        <option value="task-border-blue">Medium Task</option>
+                        <option value="task-border-green">Small Task</option>
                     </select>
                 </div>
                 <div class="tasks-container">
                     <div class="task-list" id="task-list-${projectId}"></div>
                 </div>
             `;
-            console.log(`Default ProjectID: ${projectId}`);
+            // console.log(`Default ProjectID: ${projectId}`);
         } else {
             projectHTML += `
                 <div class="tasks-container">
@@ -80,18 +83,21 @@ export const projectPreview = (() => {
         projectPreviewElement.innerHTML = projectHTML;
 
         if (isDefault) {
+            const filterSelectElement = document.getElementById(`filter-select-${projectId}`);
+            if (filterSelectElement) {
+                filterSelectElement.addEventListener('change', (event) => handleFilterChange(event, projectId));
+            } else {
+                console.error('Filter select element not found in the DOM.');
+            }
             renderDefaultProjectTasks(projectId); // Render tasks for default projects
-
         } else {
             renderTasks(projectId); // Render tasks for user-created project
         }
     }
 
-    function updateDefaultInbox() {
-        const inboxTasks = gatherTasksForInbox();
-        projectTasks['default-inbox'] = inboxTasks;
-        storeProjectTasks('default-inbox'); // Store default inbox tasks in local storage
-        renderTasks('default-inbox'); // Render updated tasks in the default inbox
+    function handleFilterChange(event, projectId) {
+        currentFilter = event.target.value;
+        renderDefaultProjectTasks(projectId); // Re-render tasks with the selected filter
     }
 
     function moveTask(projectId, index, direction) {
@@ -141,7 +147,7 @@ export const projectPreview = (() => {
             `;
             taskList.insertAdjacentHTML('beforeend', taskHTML);
         });
-        console.log(projectTasks)
+        // console.log(projectTasks)
     }
 
     function formatDate(dateString) {
@@ -179,8 +185,6 @@ export const projectPreview = (() => {
             if (projectId === 'default-inbox') {
                 allTasks.push(...tasks); // Collect all tasks for Inbox
             } else if (projectId === 'default-today') {
-                // const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-                // const today = formatDate(new Date().toISOString().split('T')[0]); // Get today's date in MM-DD-YYYY format
                 const today = getTodayFormatted(); // Get today's date in MM-DD-YYYY format
                 const todayTasks = tasks.filter(task => task.date === today);
                 allTasks.push(...todayTasks); // Collect tasks due today
@@ -193,8 +197,6 @@ export const projectPreview = (() => {
                 const formattedEndOfWeek = formatDate(endOfWeek.toISOString().split('T')[0]);
 
                 const weekTasks = tasks.filter(task => {
-                    // const taskDate = new Date(task.date);
-                    // return taskDate >= startOfWeek && taskDate <= endOfWeek;
                     const formattedTaskDate = formatDate(task.date);
                     return formattedTaskDate >= formattedStartOfWeek && formattedTaskDate <= formattedEndOfWeek;
                 });
@@ -203,6 +205,11 @@ export const projectPreview = (() => {
                 const completedTasks = tasks.filter(task => task.completed);
                 allTasks.push(...completedTasks); // Collect completed tasks
             }
+        }
+
+        // Apply filter
+        if (currentFilter !== 'all') {
+            allTasks = allTasks.filter(task => task.borderClass === currentFilter);
         }
 
         allTasks.forEach((task, index) => {
@@ -219,8 +226,8 @@ export const projectPreview = (() => {
                 </div>
             `;
             taskList.insertAdjacentHTML('beforeend', taskHTML);
-            console.log(allTasks)
         });
+        // console.log(allTasks)
     }
 
     document.addEventListener('click', (event) => {
@@ -319,7 +326,7 @@ export const projectPreview = (() => {
         projectButton.classList.add('selected-project-button');
     }
 
-    console.log(projectTasks)
+    // console.log(projectTasks)
     // console.log(projectTasks[0])
     // console.log(inboxTasks)
 
@@ -332,3 +339,4 @@ export const projectPreview = (() => {
         loadProjectTasks
     };
 })();
+
