@@ -1,11 +1,11 @@
 const projectTasks = {
     // Example structure
     // projectId1: [
-    //     { title: "Task 1", date: "2024-06-15", completed: false },
-    //     { title: "Task 2", date: "2024-06-16", completed: true }
+    //     { title: "Task 1", date: "06-15-2024", completed: false, borderClass: "task-border-purple" },
+    //     { title: "Task 2", date: "06-16-2024", completed: true, borderClass: "task-border-blue" }
     // ],
     // projectId2: [
-    //     { title: "Task 3", date: "2024-06-17", completed: false }
+    //     { title: "Task 3", date: "06-17-2024", completed: false, borderClass: "task-border-green" }
     // ]
 };
 
@@ -80,11 +80,8 @@ export const projectPreview = (() => {
         projectPreviewElement.innerHTML = projectHTML;
 
         if (isDefault) {
-            // renderTasks('default-inbox'); // Render tasks for default inbox
-            // renderTasks(projectId); // Render tasks for default inbox
-            renderDefaultProjectTasks(projectId);
-            // console.log(projectTasks['default-inbox'])
-            // renderDefaultProjectTasks(projectId);
+            renderDefaultProjectTasks(projectId); // Render tasks for default projects
+
         } else {
             renderTasks(projectId); // Render tasks for user-created project
         }
@@ -117,15 +114,18 @@ export const projectPreview = (() => {
             let borderClass = '';
 
             if (index === 0) {
-                borderClass = 'task-border-purple';
+                // borderClass = 'task-border-purple';
+                task.borderClass = 'task-border-purple';
             } else if (index >= 1 && index <= 3) {
-                borderClass = 'task-border-blue';
+                // borderClass = 'task-border-blue';
+                task.borderClass = 'task-border-blue';
             } else if (index >= 4) {
-                borderClass = 'task-border-green';
+                // borderClass = 'task-border-green';
+                task.borderClass = 'task-border-green';
             }
 
             const taskHTML = `
-                <div class="task ${borderClass}" data-task-id="${index}">
+                <div class="task ${task.borderClass}" data-task-id="${index}">
                     <span class="task-move">
                         <i class="fas fa-arrow-up" data-action="move-up"></i>
                         <i class="fas fa-arrow-down" data-action="move-down"></i>
@@ -144,6 +144,27 @@ export const projectPreview = (() => {
         console.log(projectTasks)
     }
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    }
+
+    // function formatDate(date) {
+    //     const [year, month, day] = date.split('-');
+    //     return `${month}-${day}-${year}`;
+    // }
+
+    function getTodayFormatted() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+        return `${month}-${day}-${year}`;
+    }
+
 
     function renderDefaultProjectTasks(projectId) {
         const taskList = document.getElementById(`task-list-${projectId}`);
@@ -158,7 +179,9 @@ export const projectPreview = (() => {
             if (projectId === 'default-inbox') {
                 allTasks.push(...tasks); // Collect all tasks for Inbox
             } else if (projectId === 'default-today') {
-                const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                // const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                // const today = formatDate(new Date().toISOString().split('T')[0]); // Get today's date in MM-DD-YYYY format
+                const today = getTodayFormatted(); // Get today's date in MM-DD-YYYY format
                 const todayTasks = tasks.filter(task => task.date === today);
                 allTasks.push(...todayTasks); // Collect tasks due today
             } else if (projectId === 'default-this-week') {
@@ -166,9 +189,14 @@ export const projectPreview = (() => {
                 const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Start of the week (Monday)
                 const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7)); // End of the week (Sunday)
 
+                const formattedStartOfWeek = formatDate(startOfWeek.toISOString().split('T')[0]);
+                const formattedEndOfWeek = formatDate(endOfWeek.toISOString().split('T')[0]);
+
                 const weekTasks = tasks.filter(task => {
-                    const taskDate = new Date(task.date);
-                    return taskDate >= startOfWeek && taskDate <= endOfWeek;
+                    // const taskDate = new Date(task.date);
+                    // return taskDate >= startOfWeek && taskDate <= endOfWeek;
+                    const formattedTaskDate = formatDate(task.date);
+                    return formattedTaskDate >= formattedStartOfWeek && formattedTaskDate <= formattedEndOfWeek;
                 });
                 allTasks.push(...weekTasks); // Collect tasks for this week
             } else if (projectId === 'default-brag-notes') {
@@ -178,22 +206,9 @@ export const projectPreview = (() => {
         }
 
         allTasks.forEach((task, index) => {
-            let borderClass = '';
-
-            // if (index === 0) {
-            //     borderClass = 'task-border-purple';
-            // } else if (index >= 1 && index <= 3) {
-            //     borderClass = 'task-border-blue';
-            // } else if (index >= 4) {
-            //     borderClass = 'task-border-green';
-            // }
 
             const taskHTML = `
-                <div class="task ${borderClass}" data-task-id="${index}">
-                    <span class="task-move">
-                        <i class="fas fa-arrow-up" data-action="move-up"></i>
-                        <i class="fas fa-arrow-down" data-action="move-down"></i>
-                    </span>
+                <div class="task ${task.borderClass}" data-task-id="${index}">
                     <span class="task-title">${task.title}</span>
                     <span class="task-date">${task.date}</span>
                     <span class="task-actions">
@@ -285,7 +300,7 @@ export const projectPreview = (() => {
         const title = prompt('New Task');
         const date = prompt('Task Date (MM-DD-YYYY)');
         if (title && date) {
-            const newTask = { title, date, completed: false };
+            const newTask = { title, date, completed: false, borderClass: null };
             projectTasks[projectId].push(newTask);
             storeProjectTasks(projectId);
             renderTasks(projectId);
@@ -304,70 +319,6 @@ export const projectPreview = (() => {
         projectButton.classList.add('selected-project-button');
     }
 
-
-    // Function to gather tasks from all projects and organize them for the inbox
-    function gatherTasksForInbox() {
-        const inboxTasks = [];
-        for (const projectId in projectTasks) {
-            if (projectId !== 'default-inbox') { // Exclude default inbox itself
-                const tasks = projectTasks[projectId];
-                inboxTasks.push(...tasks);
-            }
-        }
-        return inboxTasks;
-    }
-
-    function gatherTasksFromAllProjects() {
-        const allTasks = [];
-        for (const projectId in projectTasks) {
-            allTasks.push(...projectTasks[projectId]);
-        }
-        return allTasks;
-    }
-
-    function gatherTasksForInbox() {
-        return gatherTasksFromAllProjects();
-    }
-
-    function gatherTasksForToday() {
-        const today = new Date().toISOString().split('T')[0];
-        return gatherTasksFromAllProjects().filter(task => task.date === today);
-    }
-
-    function gatherTasksForThisWeek() {
-        const today = new Date();
-        const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Monday
-        const endOfWeek = new Date(today.setDate(today.getDate() + 6)); // Sunday
-
-        return gatherTasksFromAllProjects().filter(task => {
-            const taskDate = new Date(task.date);
-            return taskDate >= startOfWeek && taskDate <= endOfWeek;
-        });
-    }
-
-    function gatherTasksForBragNotes() {
-        return gatherTasksFromAllProjects().filter(task => task.completed);
-    }
-
-    // function renderDefaultProjectTasks(projectId) {
-    //     let tasks = [];
-    //     switch (projectId) {
-    //         case 'default-inbox':
-    //             tasks = gatherTasksForInbox();
-    //             break;
-    //         case 'default-today':
-    //             tasks = gatherTasksForToday();
-    //             break;
-    //         case 'default-this-week':
-    //             tasks = gatherTasksForThisWeek();
-    //             break;
-    //         case 'default-brag-notes':
-    //             tasks = gatherTasksForBragNotes();
-    //             break;
-    //     }
-    //     renderTasksForProject(tasks, projectId);
-    // }
-
     console.log(projectTasks)
     // console.log(projectTasks[0])
     // console.log(inboxTasks)
@@ -378,7 +329,6 @@ export const projectPreview = (() => {
         handleTaskActions,
         addTask,
         highlightSelectedProjectButton,
-        updateDefaultInbox,
         loadProjectTasks
     };
 })();
