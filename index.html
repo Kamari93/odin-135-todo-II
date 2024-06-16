@@ -1,111 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Document</title>
-     <!-- style sheet -->
-     <link rel="stylesheet" href="style.css">
-     <!-- google fonts -->
-     <link rel="preconnect" href="https://fonts.gstatic.com" />
-     <link
-       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Yusei+Magic&display=swap"
-       rel="stylesheet"
-     />
-     <!-- fontawesome icons -->
-     <link
-     rel="stylesheet"
-     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-     />
-     <!-- github icon -->
-     <script
-     src="https://kit.fontawesome.com/4c536a6bd5.js"
-     crossorigin="anonymous"></script>
-     <!-- distribution main -->
-     <script src="main.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-3-5 Todo's</title>
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Yusei+Magic&display=swap" rel="stylesheet" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- GitHub Icon -->
+    <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
+    <!-- Distribution Main -->
+    <script src="main.js" defer></script>
 </head>
 <body class="light">
-     <header class="header">
-         <!-- Hamburger Menu -->
-         <button class="button-dropdown-nav" id="button-dropdown-nav">
-         <i class="fas fa-bars"></i>
-         </button>
-         <!-- Title and logo -->
-     <div class="logo">
-         <i class="fas fa-check-double"></i>
-         <h1 class="page-name"> 1-3-5 Todo's</h1>
-     </div>
-     <!-- Theme drop-down -->
-     <div class="theme">
-         <label class="theme" for="theme-select"
-             ><i class="fa fa-sun-o"></i
-         ></label>
-         <select id="theme-select">
-             <option value="light">Light Theme</option>
-             <option value="dark">Dark Theme</option>
-         </select>
-         </div>
-     </header>
+    <header class="header">
+        <!-- Hamburger Menu -->
+        <button class="button-dropdown-nav" id="button-dropdown-nav">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Title and Logo -->
+        <div class="logo">
+            <i class="fas fa-check-double"></i>
+            <h1 class="page-name">1-3-5 Todo's</h1>
+        </div>
+        <!-- Theme Drop-Down -->
+        <div class="theme">
+            <label class="theme" for="theme-select">
+                <i class="fa fa-sun-o"></i>
+            </label>
+            <select id="theme-select">
+                <option value="light">Light Theme</option>
+                <option value="dark">Dark Theme</option>
+            </select>
+        </div>
+    </header>
 
-     <main class="main">
-         <nav class="nav" id="nav">
-             <!-- Default projects -->
-             <div class="default-projects-list" id="default-projects-list">
-               <button class="button-default-project" data-project-id="default-inbox" data-project-type="inbox">
-                 <i class="fas fa-inbox"></i>
-                 Inbox
-               </button>
-               <button class="button-default-project" data-project-id="default-today" data-project-type="today">
-                 <i class="fas fa-calendar-day"></i>
-                 Today
-               </button>
-               <button class="button-default-project" data-project-id="default-this-week" data-project-type="this-week">
-                 <i class="fas fa-calendar-week"></i>
-                 This Week
-               </button>
-               <button class="button-default-project" data-project-id="default-brag-notes" data-project-type="brag-notes">
-                 <i class="fas fa-trophy"></i>
-                 Brag Notes
-               </button>
-             </div>
-             <!-- User projects -->
-             <h1 class="projects-title">Projects</h1>
-             <div class="projects-list" id="projects-list"></div>
-             <button class="button-add-project" id="button-add-project">
-               <i class="fas fa-plus"></i>
-               Add Project
-             </button>
-             <div class="add-project-popup" id="add-project-popup">
-               <input
-                 class="input-add-project-popup"
-                 id="input-add-project-popup"
-                 type="text"
-               />
-               <div class="add-project-popup-buttons">
-                 <button
-                   class="button-add-project-popup"
-                   id="button-add-project-popup"
-                 >
-                   Add
-                 </button>
-                 <button
-                   class="button-cancel-project-popup"
-                   id="button-cancel-project-popup"
-                 >
-                   Cancel
-                 </button>
-               </div>
-             </div>
-           </nav>
-          <!-- Tasks right side of screen (rendering) -->
-         <div class="project-preview" id="project-preview"></div>
-       </main>
+    <main class="main">
+        <nav class="nav" id="nav">
+            <!-- Default Projects -->
+            <div class="default-projects-list" id="default-projects-list">
+                <button class="button-default-project" data-project-id="default-inbox">
+                    <i class="fas fa-inbox"></i>
+                    Inbox
+                </button>
+                <button class="button-default-project" data-project-id="default-today">
+                    <i class="fas fa-calendar-day"></i>
+                    Today
+                </button>
+                <button class="button-default-project" data-project-id="default-this-week">
+                    <i class="fas fa-calendar-week"></i>
+                    This Week
+                </button>
+                <button class="button-default-project" data-project-id="default-brag-notes">
+                    <i class="fas fa-trophy"></i>
+                    Brag Notes
+                </button>
+            </div>
+            <!-- User Projects -->
+            <h1 class="projects-title">Projects</h1>
+            <div class="projects-list" id="projects-list"></div>
+            <button class="button-add-project" id="button-add-project">
+                <i class="fas fa-plus"></i>
+                Add Project
+            </button>
+            <div class="add-project-popup" id="add-project-popup">
+                <input class="input-add-project-popup" id="input-add-project-popup" type="text" placeholder="Project Name" />
+                <div class="add-project-popup-buttons">
+                    <button class="button-add-project-popup" id="button-add-project-popup">Add</button>
+                    <button class="button-cancel-project-popup" id="button-cancel-project-popup">Cancel</button>
+                </div>
+            </div>
+        </nav>
+        <!-- Tasks Rendering -->
+        <div class="project-preview" id="project-preview"></div>
+    </main>
 
-     <footer class="footer">
-         <p>Copyright © 2024 Kamari93</p>
-         <a href="https://github.com/Kamari93" target="_blank">
-           <i class="fab fa-github"></i
-         ></a>
-       </footer>
+    <footer class="footer">
+        <p>Copyright © 2024 Kamari93</p>
+        <a href="https://github.com/Kamari93" target="_blank">
+            <i class="fab fa-github"></i>
+        </a>
+    </footer>
 </body>
 </html>
+
