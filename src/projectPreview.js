@@ -210,15 +210,13 @@ export const projectPreview = (() => {
                     <span class="task-title">${task.title}</span>
                     <span class="task-date">${task.date}</span>
                     <span class="task-actions">
-                        <i class="fas fa-edit" data-action="edit"></i>
-                        <i class="fas fa-trash-alt" data-action="delete"></i>
-                        <h5 class=fas>From: ${task.pName}</h5>
+                        <h5 class=project-name>From: ${task.pName}</h5>
                     </span>
-                    <input type="checkbox" class="task-complete" ${task.completed ? 'checked' : ''}>
+                    <input type="checkbox" class="task-complete" ${task.completed ? 'checked' : ''} disabled>
                 </div>
             `;
             taskList.insertAdjacentHTML('beforeend', taskHTML);
-            console.log(allTasks)
+            // console.log(allTasks)
         });
     }
 
