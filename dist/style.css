@@ -702,7 +702,7 @@ body.dark .fa-github {
 
 /* Media queries */
 
-@media (max-width: 650px) {
+@media (max-width: 800px) {
     .button-dropdown-nav {
         display: block;
     }
@@ -732,9 +732,8 @@ body.dark .fa-github {
     .task-form-container {
         width: 90%;
     }
-}
 
-@media (max-width: 768px) {
+
     .task-list-container {
         flex-direction: column;
     }
@@ -743,6 +742,10 @@ body.dark .fa-github {
         margin-right: 0;
     }
 
+}
+
+@media (max-width: 1000px) {
+    
     .color-code-key {
         margin-top: 20px;
         width: 100%; /* Color key takes full width below task list */
@@ -750,4 +753,5 @@ body.dark .fa-github {
         column-gap: 10px;
         /* align-items: center; */
     }
+
 }
