@@ -28,6 +28,8 @@ export const addProjectPopup = (() => {
             addNewProject(newProject); // Add the new project
             addProjectPopup.style.display = 'none'; // Optionally, close the popup
             inputAddProjectPopup.value = ''; // Optionally, clear the input field
+            // reload page after Project creation for local storage
+            location.reload();
         }
     });
 
