@@ -50,9 +50,9 @@ export const projectPreview = (() => {
                 <div class="filter-dropdown" id="filter-dropdown-${projectId}">
                     <select class="filter-select" id="filter-select-${projectId}">
                         <option value="all">All Tasks</option>
-                        <option value="task-border-purple">Big Task</option>
-                        <option value="task-border-blue">Medium Task</option>
-                        <option value="task-border-green">Small Task</option>
+                        <option value="task-border-purple">Big Tasks</option>
+                        <option value="task-border-blue">Medium Tasks</option>
+                        <option value="task-border-green">Small Tasks</option>
                     </select>
                 </div>
                 <div class="tasks-container">
