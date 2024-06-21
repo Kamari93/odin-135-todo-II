@@ -354,6 +354,7 @@ body.dark .selected-project-button {
     background-color: var(--primary-light);
     margin-bottom: 5px;
     border-radius: 5px;
+    height: 75px;
 }
 
 body.dark .task {
@@ -439,6 +440,7 @@ body.dark .task {
     min-width: 100px;
     max-width: 120px;
     text-align: left;
+    text-overflow: ellipsis;
 }
 
 .task:hover .task-actions i,

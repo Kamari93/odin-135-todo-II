@@ -210,7 +210,7 @@ export const projectPreview = (() => {
                     <span class="task-title">${task.title}</span>
                     <span class="task-date">${task.date}</span>
                     <span class="task-actions">
-                        <h5 class=project-name>From: ${task.pName}</h5>
+                        <h5 class=project-name>From:<br>${task.pName}</h5>
                     </span>
                     <input type="checkbox" class="task-complete" ${task.completed ? 'checked' : ''} disabled>
                 </div>
