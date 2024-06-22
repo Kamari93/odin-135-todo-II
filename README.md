@@ -2,7 +2,7 @@
 
 The **1-3-5 Todo List App** is a task management application designed to help you prioritize and focus on your daily tasks. Based on the 1-3-5 rule and the Effective Engineer by Edmond Lau, this app encourages you to allocate one large task, three medium tasks, and five small tasks to tackle within a day, ensuring you make consistent progress without feeling overwhelmed.
 
-[Live Preview Here](https://github.com/Kamari93/odin-135-todo-II)
+[Live Preview Here](https://kamari93.github.io/odin-135-todo-II/)
 
 ## Features
 
@@ -91,3 +91,4 @@ Contributions are welcome! Please follow these steps:
 - The 1-3-5 rule is a simple yet effective productivity technique. Read more about it [here](https://www.calendar.com/blog/conquer-your-to-do-list-with-the-1-3-5-rule-a-simple-path-to-productivity/).
 - Edmond Lau's book [The Effective Engineer](https://www.effectiveengineer.com/book).
 - Icons made by [FontAwesome](https://fontawesome.com).
+- Icon made by [Icon8](https://icons8.com/icon/59757/checkmark)
