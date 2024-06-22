@@ -359,6 +359,9 @@ body.dark .selected-project-button {
 
 body.dark .task {
     color: var(--primary-dark);
+    /* color: var(--primary-main); */
+    background: var(--third-light);
+    /* background-color: rgb(115, 124, 115); */
 }
 
 .task:hover {
