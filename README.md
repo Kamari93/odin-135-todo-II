@@ -58,7 +58,7 @@ The **1-3-5 Todo List App** is a task management application designed to help yo
 
 1. For default projects (e.g., Today, This Week), use the filter dropdown to select the task size you want to view.
 
-### Disabling Checkboxes
+### Disabling Checkboxes and Moving Tasks
 
 Checkboxes and moving tasks for default projects are disabled to prevent unintended modifications.
 
