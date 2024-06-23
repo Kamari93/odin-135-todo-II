@@ -902,10 +902,18 @@ body.dark .fa-github {
         padding: 5px;
     }
 
+    .task-actions {
+        margin-right: 10px;
+    }
+
     .color-code-key {
         font-size: medium;
         margin-bottom: 10px;
         padding-top: 5px;
         margin-left: 0px;
+    }
+
+    .color-code-item {
+        font-size: small;
     }
 }
