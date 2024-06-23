@@ -906,6 +906,11 @@ body.dark .fa-github {
         margin-right: 10px;
     }
 
+    .task-actions h5 {
+        min-width: 75px;
+        max-width: 100px;
+    }
+
     .color-code-key {
         font-size: medium;
         margin-bottom: 10px;
