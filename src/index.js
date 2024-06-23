@@ -1,4 +1,4 @@
-alert('Welcome to the 1-3-5-Todo task management app, inspired by the 1-3-5 productivity rule! This technique helps you prioritize and focus by suggesting you tackle one large task, three medium tasks, and five small tasks each day. To get started, click the "Add Project" button. Once your projects are added, select a project to add tasks and manage your schedule. You can also use the Four Default Projects to filter, organize, and view all your tasks. Enjoy managing your tasks more efficiently!');
+alert('Welcome to the 1-3-5-Todo task management app, inspired by the 1-3-5 productivity rule! This technique helps you prioritize and focus by suggesting you tackle one large task, three medium tasks, and five small tasks each day. To get started, click the "Add Project" button. Once your projects are added, select a project to add tasks and manage your schedule. You can also use the Four Default Projects to filter and view all your tasks. Enjoy managing your tasks more efficiently!');
 alert('Keep Going...🍊🌊');
 
 import toggleTheme from './theme';
