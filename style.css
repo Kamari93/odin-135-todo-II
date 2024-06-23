@@ -909,6 +909,7 @@ body.dark .fa-github {
     .task-actions h5 {
         min-width: 75px;
         max-width: 100px;
+        text-align: center;
     }
 
     .color-code-key {
