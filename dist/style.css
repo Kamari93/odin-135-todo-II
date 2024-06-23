@@ -462,10 +462,12 @@ body.dark .task {
 }
 
 body.dark .task-description-button {
-    border: solid 2px #bf7e46;
+    /* border: solid 2px #bf7e46; */
+    border: solid 2px var(--third-dark);
 }
 
 body.dark .task-description-button:hover {
+    border: #bf7e46;;
     background: #bf7e46;
     color: var(--primary-main);
 }
