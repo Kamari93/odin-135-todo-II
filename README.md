@@ -44,7 +44,7 @@ The **1-3-5 Todo List App** is a task management application designed to help yo
 1. Select a project from the project list.
 2. Click the "Add Task" button.
 3. Enter the task title and due date in the prompts.
-4. Add a task description and task duration by clicking the description btn.
+4. Add and view task description and task duration by clicking the description btn.
 5. The task will be categorized based on its order in the list:
    - 1st task: Large task (Purple border)
    - 2nd-4th tasks: Medium tasks (Blue border)
