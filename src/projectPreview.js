@@ -57,6 +57,20 @@ export const projectPreview = (() => {
                 </div>
                 <div class="tasks-container">
                     <div class="task-list" id="task-list-${projectId}"></div>
+                     <div class="color-code-key default-color-code-key">
+                            <div class="color-code-item">
+                                <div class="color-code-box purple">1</div>
+                                <span>Big Task</span>
+                            </div>
+                            <div class="color-code-item">
+                                <div class="color-code-box blue">3</div>
+                                <span>Medium Task</span>
+                            </div>
+                            <div class="color-code-item">
+                                <div class="color-code-box green">5</div>
+                                <span>Small Task</span>
+                            </div>
+                        </div>
                 </div>
             `;
         } else {
