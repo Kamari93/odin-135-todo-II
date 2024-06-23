@@ -78,6 +78,22 @@
         </nav>
         <!-- Tasks Rendering -->
         <div class="project-preview" id="project-preview"></div>
+           <!-- Modal HTML -->
+           <div id="descriptionModal" class="modal">
+            <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="taskTitle"></h3> <!-- Task title element -->
+            <h4 id="taskDate"></h4>
+            <h4>
+            <label for="durationSelect">Duration: </label>
+            <select id="durationSelect">
+                <!-- Options will be dynamically added in JavaScript -->
+            </select>
+             </h4>
+            <textarea id="descriptionInput" placeholder="Keep Going...🍊🌊" rows="5"></textarea>
+            <button id="saveDescriptionButton">Save</button>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">

@@ -451,6 +451,25 @@ body.dark .task {
     visibility: visible;
 }
 
+.task-description-button {
+    background: none;
+    border: solid 2px var(--third-light);
+}
+
+.task-description-button:hover {
+    background: var(--third-light);
+    color: var(--primary-main);
+}
+
+body.dark .task-description-button {
+    border: solid 2px #bf7e46;
+}
+
+body.dark .task-description-button:hover {
+    background: #bf7e46;
+    color: var(--primary-main);
+}
+
 /* Task Complete Checkbox */
 .task-complete {
     /* flex: 0 0 auto; Do not grow or shrink */
@@ -702,6 +721,80 @@ body.dark .fa-github {
 .fa-github:hover {
     transform: rotate(360deg) scale(1.2);
 }
+
+/* Modal for Tasks Description */
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+    /* background-color: #fefefe; */
+    background-color: var(--primary-main);
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px;
+  }
+
+  body.dark .modal-content {
+    background: var(--third-dark);
+    color: var(--primary-main);
+  }
+  
+  .close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-button:hover,
+  .close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #descriptionInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  #saveDescriptionButton {
+    border: solid 2px var(--add-color);
+  }
+
+  #saveDescriptionButton:hover {
+    background: var(--add-color);
+    color: var(--primary-main);
+  }
+
+  body.dark #saveDescriptionButton:hover {
+    background: #bf7e46;
+    color: var(--primary-main);
+  }
+
+  body.dark #saveDescriptionButton {
+    border: solid 2px #bf7e46;;
+    color: var(--primary-dark);
+  }
+  
 
 /* Media queries */
 
