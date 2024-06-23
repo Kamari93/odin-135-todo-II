@@ -867,6 +867,11 @@ body.dark .fa-github {
         width: 100vw;
     }
 
+    .tasks-container {
+        /* height: 250px; */
+        margin-bottom: 20px;
+    }
+
     .projects-list {
         max-height: 100px;
 
