@@ -202,9 +202,9 @@ export const projectPreview = (() => {
 
         allTasks.forEach((task, index) => {
             const taskHTML = `
-                <div class="task ${task.borderClass}" data-task-id="${index}">
-                    <span class="task-title">${task.title}</span>
-                    <span class="task-date">${task.date}</span>
+                <div class="task ${task.borderClass} default-task" data-task-id="${index}">
+                    <span class="task-title default-title">${task.title}</span>
+                    <span class="task-date default-date">${task.date}</span>
                     <span class="task-actions">
                         <h5 class=project-name>From:<br>${task.pName}</h5>
                     </span>

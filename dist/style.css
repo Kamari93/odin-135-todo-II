@@ -851,3 +851,57 @@ body.dark .fa-github {
     }
 
 }
+
+@media (max-width: 500px) {
+    /* .header, */
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-preview {
+        padding-left: 5px;
+    }
+
+    .task-list-container {
+        width: 100vw;
+    }
+
+    .task-list {
+        width: 95%;
+    }
+
+    .task {
+        padding: 2px;
+        font-size: smaller;
+    }
+    .task-title {
+        min-width: 50px; /* Minimum width for uniformity */
+        max-width: 100px; /* Maximum width to prevent overflow */
+        /* max-width: 50px; */
+        margin-right: 10px;
+    }
+
+    .default-task {
+        font-size: medium;
+        width: 100%;
+    }
+
+    .default-date {
+        padding-left: 5px;
+        /* padding-right: 5px; */
+    }
+
+    .default-title {
+        min-width: 100px;
+        max-width: 150px;
+        padding-left: 5px;
+    }
+
+    .color-code-key {
+        font-size: medium;
+        margin-bottom: 10px;
+        padding-top: 5px;
+        margin-left: 0px;
+    }
+}
