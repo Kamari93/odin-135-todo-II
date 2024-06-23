@@ -946,4 +946,8 @@ body.dark .fa-github {
     .color-code-item {
         font-size: small;
     }
+
+    .default-color-code-key {
+        font-size: small;
+    }
 }
