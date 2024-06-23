@@ -867,8 +867,13 @@ body.dark .fa-github {
         width: 100vw;
     }
 
+    .projects-list {
+        overflow-x: hidden;
+    }
+
     .task-list {
         width: 95%;
+        overflow-x: hidden;
     }
 
     .task {
