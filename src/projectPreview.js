@@ -1,11 +1,11 @@
 const projectTasks = {
     // Example structure
     // projectId1: [
-    //     { title: "Task 1", date: "06-15-2024", completed: false, borderClass: "task-border-purple", pName: "Project 1" },
-    //     { title: "Task 2", date: "06-16-2024", completed: true, borderClass: "task-border-blue", pName: "Project 1" }
+    //     { title: "Task 1", date: "06-15-2024", completed: false, borderClass: "task-border-purple", pName: "Project 1", description, duration: 30 },
+    //     { title: "Task 2", date: "06-16-2024", completed: true, borderClass: "task-border-blue", pName: "Project 1", description, duration: 30 }
     // ],
     // projectId2: [
-    //     { title: "Task 3", date: "06-17-2024", completed: false, borderClass: "task-border-green", pName: "Project 2" }
+    //     { title: "Task 3", date: "06-17-2024", completed: false, borderClass: "task-border-green", pName: "Project 2", description, duration: 30 }
     // ]
 };
 
@@ -148,6 +148,7 @@ export const projectPreview = (() => {
                     <span class="task-title">${task.title}</span>
                     <span class="task-date">${task.date}</span>
                     <span class="task-actions">
+                        <button class="task-description-button" data-task-id="${index}">Description</button>
                         <i class="fas fa-edit" data-action="edit"></i>
                         <i class="fas fa-trash-alt" data-action="delete"></i>
                     </span>
@@ -155,6 +156,12 @@ export const projectPreview = (() => {
                 </div>
             `;
             taskList.insertAdjacentHTML('beforeend', taskHTML);
+
+            // Attach event listeners to the description buttons
+            const descriptionButtons = taskList.querySelectorAll('.task-description-button');
+            descriptionButtons.forEach(button => {
+                button.addEventListener('click', handleDescriptionButtonClick);
+            });
         });
     }
 
@@ -272,6 +279,74 @@ export const projectPreview = (() => {
         addProjectName();
     }
 
+    // function handleDescriptionButtonClick(event) {
+    //     const taskId = event.target.dataset.taskId;
+    //     const task = projectTasks[currentProjectId][taskId];
+
+    //     const description = prompt('Task Description', task.description || '');
+    //     if (description !== null) {
+    //         task.description = description;
+    //         storeProjectTasks(currentProjectId);
+    //     }
+    // }
+
+    function handleDescriptionButtonClick(event) {
+        const taskId = event.target.dataset.taskId;
+        const taskElement = event.target.closest('.task');
+        const projectId = taskElement.closest('.tasks-container').querySelector('.task-list').id.replace('task-list-', '');
+        const task = projectTasks[projectId][taskId];
+
+        const descriptionModal = document.getElementById('descriptionModal');
+        const descriptionInput = document.getElementById('descriptionInput');
+        const taskTitleElement = document.getElementById('taskTitle'); // Task title element
+        const taskDateElement = document.getElementById('taskDate');
+        descriptionInput.value = task.description || '';
+        taskTitleElement.textContent = `Task: ${task.title}`; // Set task title
+        taskDateElement.textContent = `Date: ${task.date}`; // Set task due date
+
+        // Populate duration select options
+        durationSelect.innerHTML = '';
+        for (let i = 30; i <= 240; i += 30) { // Example: 30 minutes to 240 minutes (4 hours)
+            const option = document.createElement('option');
+            option.value = i;
+            if (i === 60) {
+                option.text = `${i / 60} hour`;
+            } else if (i > 60) {
+                option.text = `${i / 60} hours`;
+            } else {
+                option.text = `${i} minutes`;
+            }
+            durationSelect.appendChild(option);
+        }
+
+        // Set the current duration value
+        durationSelect.value = task.duration || 30;
+
+        const isDefaultProject = ['default-inbox', 'default-today', 'default-this-week', 'default-brag-notes'].includes(projectId);
+        descriptionInput.readOnly = isDefaultProject;
+
+        descriptionModal.style.display = 'block';
+
+        const saveButton = document.getElementById('saveDescriptionButton');
+        if (isDefaultProject) {
+            saveButton.style.display = 'none'; // Hide save button for default projects
+        } else {
+            saveButton.style.display = 'block'; // Show save button for user-created projects
+            saveButton.onclick = () => {
+                task.description = descriptionInput.value;
+                task.duration = durationSelect.value;
+                storeProjectTasks(projectId);
+                descriptionModal.style.display = 'none';
+            };
+        }
+
+        const closeButton = descriptionModal.querySelector('.close-button');
+        closeButton.onclick = () => {
+            descriptionModal.style.display = 'none';
+        };
+    }
+
+
     function addTask(projectId) {
         if (!projectTasks[projectId]) {
             projectTasks[projectId] = [];
@@ -297,7 +372,7 @@ export const projectPreview = (() => {
             }
             let pName = projectLookup[projectId];
 
-            const newTask = { title, date, completed: false, borderClass, pName };
+            const newTask = { title, date, completed: false, borderClass, pName, description: '', duration: '' };
             projectTasks[projectId].push(newTask);
             storeProjectTasks(projectId);
             renderTasks(projectId);
