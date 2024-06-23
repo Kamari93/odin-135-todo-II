@@ -884,6 +884,14 @@ body.dark .fa-github {
         color: var(--primary-light)
     }
 
+    #durationSelect {
+        background: var(--add-color);
+    }
+
+    body.dark #durationSelect {
+        background: #bf7e46;
+    }
+
     .project-preview {
         padding-left: 5px;
     }
