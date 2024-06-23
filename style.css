@@ -950,4 +950,9 @@ body.dark .fa-github {
     .default-color-code-key {
         font-size: small;
     }
+
+    .footer {
+        font-size: medium;
+        justify-content:left;
+    }
 }
