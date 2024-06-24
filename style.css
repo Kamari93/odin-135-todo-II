@@ -778,6 +778,14 @@ body.dark .fa-github {
     text-decoration: none;
     cursor: pointer;
   }
+
+#durationSelect {
+    background: var(--add-color);
+}
+
+body.dark #durationSelect {
+    background: #bf7e46;
+}
   
   #descriptionInput {
     width: 100%;
@@ -882,14 +890,6 @@ body.dark .fa-github {
     body.dark .filter-dropdown {
         background-color: var(--third-dark);
         color: var(--primary-light)
-    }
-
-    #durationSelect {
-        background: var(--add-color);
-    }
-
-    body.dark #durationSelect {
-        background: #bf7e46;
     }
 
     .project-preview {
