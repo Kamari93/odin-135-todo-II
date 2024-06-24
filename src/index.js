@@ -1,13 +1,24 @@
-alert('Welcome to the 1-3-5 Todo List App! This is a task management application designed to help you prioritize and focus on your daily tasks. Based on the 1-3-5 rule and the Effective Engineer by Edmond Lau, this app encourages you to allocate one large task, three medium tasks, and five small tasks to tackle within a day, ensuring you make consistent progress without feeling overwhelmed. To get started, click the "Add Project" button. Once your projects are added, select a project to add tasks and manage your schedule. You can also use the Four Default Projects to filter and view all your tasks. Enjoy managing your tasks more efficiently!');
-alert('Keep Going...🍊🌊');
-
 import toggleTheme from './theme';
 import { addProjectPopup } from './addProjectPopup.js';
 import { openNav } from './hamburgerNav.js';
 import { projectPreview } from './projectPreview';
 
+// Function to show alerts on reload if the flag is not set
+function showAlertIfNoProjectCreated() {
+    // Check if the flag is set
+    if (!sessionStorage.getItem('projectCreated')) {
+        alert('Welcome to the 1-3-5 Todo List App! This is a task management application designed to help you prioritize and focus on your daily tasks. Based on the 1-3-5 rule and the Effective Engineer by Edmond Lau, this app encourages you to allocate one large task, three medium tasks, and five small tasks to tackle within a day, ensuring you make consistent progress without feeling overwhelmed. To get started, click the "Add Project" button. Once your projects are added, select a project to add tasks and manage your schedule. You can also use the Four Default Projects to filter and view all your tasks. Enjoy managing your work flow more efficiently!');
+        alert('Keep Going...🍊🌊');
+    } else {
+        // Remove the flag so alerts will show on next page load
+        sessionStorage.removeItem('projectCreated');
+    }
+}
+
 // Wrapped all the initialization code inside a DOMContentLoaded event listener to ensure the DOM is fully loaded before accessing elements.
 document.addEventListener('DOMContentLoaded', () => {
+    showAlertIfNoProjectCreated(); // Call the alert function here
+
     // Element references
     const themeSelect = document.getElementById("theme-select");
     const addProjectBtn = document.getElementById("button-add-project");

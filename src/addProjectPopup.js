@@ -29,6 +29,7 @@ export const addProjectPopup = (() => {
             addProjectPopup.style.display = 'none'; // Optionally, close the popup
             inputAddProjectPopup.value = ''; // Optionally, clear the input field
             // reload page after Project creation for local storage
+            sessionStorage.setItem('projectCreated', 'true'); // Set flag when project is created
             location.reload();
         }
     });
