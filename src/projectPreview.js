@@ -314,9 +314,11 @@ export const projectPreview = (() => {
         const descriptionInput = document.getElementById('descriptionInput');
         const taskTitleElement = document.getElementById('taskTitle'); // Task title element
         const taskDateElement = document.getElementById('taskDate');
+        const taskStatusElement = document.getElementById('taskStatus');
         descriptionInput.value = task.description || '';
         taskTitleElement.textContent = `Task: ${task.title}`; // Set task title
         taskDateElement.textContent = `Date: ${task.date}`; // Set task due date
+        taskStatusElement.textContent = `Status: ${task.completed ? 'Completed' : 'Not Completed'}`; // Set task status
 
         // Populate duration select options
         durationSelect.innerHTML = '';
