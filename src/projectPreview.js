@@ -200,6 +200,7 @@ export const projectPreview = (() => {
                     const taskDate = formatDate(task.date);
                     const startOfWeek = getStartOfWeek();
                     const endOfWeek = getEndOfWeek();
+                    // console.log(taskDate, startOfWeek, endOfWeek);
                     return taskDate >= startOfWeek && taskDate <= endOfWeek;
                 });
                 allTasks.push(...weekTasks); // Collect tasks for this week
