@@ -952,7 +952,8 @@ body.dark #saveDescriptionButton {
   }
 
   .task .task-actions i,
-  .task .task-actions h5 {
+  .task .task-actions h5,
+  .right-project-panel {
     visibility: visible;
   }
 
